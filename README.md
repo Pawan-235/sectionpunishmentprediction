@@ -1,1 +1,2 @@
-# sectionpunishmentprediction
+# section-punishment
+Section Punishment Prediction

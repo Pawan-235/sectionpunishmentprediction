@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/static/img.jpeg">
+    <title>About - Section and Punishment Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6b7280, #4b5e8e, #7c3aed);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #1f2937;
+        }
+
+
+        header {
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            text-transform: uppercase;
+        }
+
+        header nav a {
+            color: #e0e7ff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        header nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #e0e7ff;
+            transition: width 0.3s ease;
+        }
+
+        header nav a:hover::after {
+            width: 100%;
+        }
+
+        header nav a:hover {
+            color: #ffffff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 36rem;
+            margin: 2rem auto;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            flex: 1;
+        }
+
+        .container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #1e3a8a;
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            text-align: justify;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+        }
+
+       footer {
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        footer a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-weight: 500;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 640px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.25rem;
+            }
+
+            header nav {
+                margin-top: 1rem;
+            }
+
+            header nav a {
+                margin: 0 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .container {
+                margin: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            p {
+                font-size: 0.875rem;
+            }
+
+            footer {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Section and Punishment Prediction</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>About Us</h2>
+        <p>
+            Welcome to Legal Section and Punishment Prediction, a platform dedicated to simplifying legal analysis through advanced
+            technology. Our mission is to provide accurate and efficient predictions of legal sections and corresponding
+            punishments based on case descriptions.
+        </p>
+        <p>
+            Our tool leverages cutting-edge algorithms to assist legal professionals, students, and individuals in
+            understanding potential legal outcomes. We aim to make legal information more accessible and understandable,
+            bridging the gap between complex legal texts and practical application.
+        </p>
+        <p>
+            Founded in 2025, I am passionate about innovation in the real world problems, ensuring our platform remains
+            user-friendly, reliable, and up-to-date with the latest legal standards.
+        </p>
+    </div>
+
+   <footer>
+    <span>© 2025 Section and Punishment Prediction. All rights reserved (Pawanpreet Kaur). | 
+        <a href="https://github.com/Pawan-235" target="_blank" aria-label="GitHub Profile">GitHub</a> | 
+    </span>
+</footer>
+</body>
+
+</html>

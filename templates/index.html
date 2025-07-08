@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="icon" type="image/x-icon" href="/static/img.jpeg" >
+    <title>Section and Punishment Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6b7280, #4b5e8e, #7c3aed);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #1f2937;
+        }
+
+        header {
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            text-transform: uppercase;
+        }
+
+        header nav a {
+            color: #e0e7ff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        header nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #e0e7ff;
+            transition: width 0.3s ease;
+        }
+
+        header nav a:hover::after {
+            width: 100%;
+        }
+
+        header nav a:hover {
+            color: #ffffff;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 36rem;
+            margin: 2rem auto;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            flex: 1;
+        }
+
+        .container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 2.5rem;
+            color: #1e3a8a;
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        textarea {
+            width: 100%;
+            border: 2px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            font-size: 1rem;
+            color: #1f2937;
+            resize: vertical;
+            min-height: 120px;
+            max-height: 240px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+        }
+
+        button {
+            width: 100%;
+            background: linear-gradient(to right, #3b82f6, #7c3aed);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        button:hover {
+            background: linear-gradient(to right, #2563eb, #6d28d9);
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4);
+        }
+
+        #predictResult {
+            background: rgba(243, 244, 246, 0.9);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            display: none;
+            border-left: 5px solid #3b82f6;
+            font-size: 0.9rem;
+            color: #1f2937;
+            line-height: 1.6;
+            animation: fadeIn 0.5s ease;
+        }
+
+        #predictResult strong {
+            color: #1e3a8a;
+            font-weight: 700;
+        }
+
+        #predictResult .error {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        footer {
+            background: linear-gradient(to right, #1e3a8a, #3b82f6);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            margin-top: auto;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        footer a {
+            color: #e0e7ff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 1.25rem;
+            }
+
+            header nav {
+                margin-top: 1rem;
+            }
+
+            header nav a {
+                margin: 0 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .container {
+                margin: 1.5rem;
+                padding: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            textarea {
+                font-size: 0.875rem;
+                padding: 0.75rem;
+            }
+
+            button {
+                font-size: 0.875rem;
+                padding: 0.75rem;
+            }
+
+            #predictResult {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+
+            footer {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Legal Section Prediction</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Section & Punishment Prediction</h2>
+        
+        <!-- Form for predicting the section based on description -->
+        <form id="predictForm" class="form-group">
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" rows="4" placeholder="Enter the legal description..." required></textarea>
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+        
+        <!-- Div to display the prediction results -->
+        <div id="predictResult"></div>
+    </div>
+
+    <footer>
+    <span>© 2025 Section and Punishment Prediction. All rights reserved (Pawanpreet Kaur). | 
+        <a href="https://github.com/Pawan-235" target="_blank" aria-label="GitHub Profile">GitHub</a> | 
+    </span>
+</footer>
+
+    <!-- jQuery for handling AJAX requests -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Handling form submission for prediction
+        $('#predictForm').on('submit', function(e) {
+            e.preventDefault();
+            var description = $('#description').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/predict',
+                data: { description: description },
+                success: function(response) {
+                    $('#predictResult').html(
+                        `<strong>Predicted Section:</strong> ${response.predicted_section}<br>
+                         <strong>Corresponding Punishment:</strong> ${response.predicted_punishment}`
+                    ).css('display', 'block'); // Show the result
+                },
+                error: function(err) {
+                    $('#predictResult').html('<strong class="error">Error:</strong> Could not predict section.').css('display', 'block'); // Show error
+                }
+            });
+        });
+    </script>
+</body>
+</html>
